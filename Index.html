@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All About Rocks &amp; Minerals — A Rocky Adventure</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root{
+    --rock:#7A5C3E;
+    --stone:#9C7B57;
+    --sand:#E8D5B5;
+    --clay:#C8956C;
+    --moss:#7FB069;
+    --sun:#FFC857;
+    --leaf:#5BB85C;
+    --pop:#FF7A8A;
+    --gem:#5BC0BE;
+    --violet:#9B8CFF;
+    --ink:#3a2a1a;
+    --soft:#6b5640;
+    --shadow:rgba(58,42,26,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Nunito',sans-serif;color:var(--ink);line-height:1.55;
+    background:linear-gradient(180deg,#D8C3A0 0%,#E8D5B5 28%,#F2E6CF 58%,#EAF0DD 100%);
+    background-attachment:fixed;overflow-x:hidden;
+  }
+  .page{max-width:840px;margin:0 auto;padding:18px 16px 70px}
+
+  /* floating sparkles (for gems) */
+  .spark{position:fixed;color:#fff;z-index:0;pointer-events:none;animation:tw 3s ease-in-out infinite;opacity:.6}
+  @keyframes tw{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:.9;transform:scale(1.2)}}
+  .page>*{position:relative;z-index:1}
+
+  /* hero */
+  .hero{text-align:center;padding:24px 14px 8px}
+  .mascot{width:130px;height:120px;margin:0 auto;animation:bob 3s ease-in-out infinite}
+  .mascot svg{width:100%;height:100%;filter:drop-shadow(0 6px 8px var(--shadow))}
+  @keyframes bob{50%{transform:translateY(-12px)}}
+  .hero h1{font-family:'Fredoka';font-weight:700;font-size:clamp(28px,7.5vw,52px);color:#fff;
+    text-shadow:0 3px 0 var(--rock),0 6px 14px var(--shadow);margin-top:6px;line-height:1.05}
+  .hero .tag{display:inline-block;margin-top:12px;background:#fff;color:var(--soft);font-weight:800;
+    padding:8px 20px;border-radius:30px;box-shadow:0 4px 0 var(--shadow);font-size:15px}
+
+  .progress{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:16px 0 4px}
+  .pdot{width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #c4ad8c;opacity:.6}
+
+  .card{background:rgba(255,255,255,.97);border-radius:30px;padding:24px 22px;margin:20px 0;
+    box-shadow:0 8px 0 var(--shadow),0 16px 34px rgba(58,42,26,.14);border:4px solid #fff}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Fredoka';font-weight:600;font-size:13px;
+    letter-spacing:.5px;color:#fff;padding:6px 16px;border-radius:20px;text-transform:uppercase;margin-bottom:12px}
+  .c-rock{background:var(--stone)}.c-green{background:var(--leaf)}.c-violet{background:var(--violet)}
+  .c-sun{background:#E0A52E}.c-pop{background:var(--pop)}.c-gem{background:var(--gem)}
+
+  h2{font-family:'Fredoka';font-weight:700;font-size:clamp(23px,5.4vw,33px);line-height:1.15;margin-bottom:6px}
+  h3{font-family:'Fredoka';font-weight:600;font-size:20px;margin:16px 0 6px;color:var(--soft)}
+  p{font-size:17px;margin:8px 0}.big{font-size:19px}
+  b{color:#2a1c0e}.pop{color:var(--pop);font-weight:800}
+  .emoji-xl{font-size:clamp(54px,15vw,92px);text-align:center;display:block;margin:6px 0}
+
+  .define{background:linear-gradient(135deg,#F5E9D4,#EAD8B8);border:3px dashed #C9A876;border-radius:20px;
+    padding:16px 18px;margin:14px 0;font-size:18px}
+  .define .word{font-family:'Fredoka';color:var(--rock);font-size:20px;display:block;margin-bottom:2px}
+
+  .fact{display:flex;gap:14px;align-items:flex-start;background:#F5EEDF;border-radius:18px;padding:14px 16px;
+    margin:12px 0;border-left:7px solid var(--stone)}
+  .fact .ic{font-size:30px;flex-shrink:0;line-height:1}
+  .fact.green{background:#EDF7E6;border-color:var(--leaf)}
+  .fact.pink{background:#FFEEF1;border-color:var(--pop)}
+  .fact.gem{background:#E2F6F5;border-color:var(--gem)}
+
+  /* hard vs soft scale */
+  .scale{display:flex;align-items:stretch;gap:6px;margin:16px 0;border-radius:18px;overflow:hidden;
+    box-shadow:0 4px 0 var(--shadow)}
+  .scale .end{flex:0 0 90px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:12px 6px;color:#fff;text-align:center}
+  .scale .soft{background:var(--moss)}.scale .hard{background:var(--rock)}
+  .scale .end .e{font-size:30px}.scale .end b{font-family:'Fredoka';font-size:15px;margin-top:4px}
+  .scale .end small{font-size:12px}
+  .scale .bar{flex:1;background:linear-gradient(90deg,#A7CE8E,#C9A876,#7A5C3E);display:flex;align-items:center;
+    justify-content:center;color:#fff;font-family:'Fredoka';font-size:13px;text-align:center;padding:6px}
+
+  /* tap reveal cards */
+  .flip{display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;font-family:'Nunito';
+    font-size:16px;background:#F5EEDF;border:3px solid #E0CDA9;border-radius:18px;padding:14px 16px;margin:10px 0;
+    box-shadow:0 4px 0 var(--shadow);transition:.15s}
+  .flip:active{transform:translateY(3px);box-shadow:0 1px 0 var(--shadow)}
+  .flip .dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px}
+  .flip .ttl{font-family:'Fredoka';font-size:17px}
+  .flip .more{display:none;font-size:14.5px;color:var(--soft);margin-top:4px}
+  .flip.open{background:#EDF7E6;border-color:var(--leaf)}
+  .flip.open .more{display:block}
+
+  /* mineral use grid */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .tile{background:#fff;border:3px solid #ECE0CC;border-radius:20px;padding:16px;text-align:center;
+    box-shadow:0 4px 0 var(--shadow);transition:transform .15s;cursor:pointer}
+  .tile:hover{transform:translateY(-4px) rotate(-1deg)}
+  .tile .e{font-size:42px;display:block;margin-bottom:6px}
+  .tile b{font-family:'Fredoka';font-size:17px}
+  .tile span{display:block;font-size:14px;color:var(--soft);margin-top:3px}
+  .tile .reveal{display:none;margin-top:6px;font-size:14px;color:var(--rock);font-weight:700}
+  .tile.open .reveal{display:block}
+
+  /* hard/soft rock sorter */
+  .rocks-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+  .rockbox{border-radius:20px;padding:14px;text-align:center;color:#fff;box-shadow:0 5px 0 var(--shadow)}
+  .rb-hard{background:var(--rock)}.rb-soft{background:var(--moss)}
+  .rockbox h4{font-family:'Fredoka';font-size:18px;margin-bottom:8px}
+  .chip{display:inline-block;background:rgba(255,255,255,.92);color:var(--ink);border-radius:14px;
+    padding:8px 14px;margin:4px;font-weight:700;font-size:14px;cursor:pointer;transition:.12s;
+    box-shadow:0 3px 0 rgba(0,0,0,.15);user-select:none}
+  .chip:hover{transform:translateY(-2px)}
+  .chip:active,.chip.tapped{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.15)}
+  .chip.tapped{background:var(--sun);color:#5a4326}
+  .rock-fact-box{background:#FFF6DC;border:3px dashed #E6C766;border-radius:16px;padding:14px 16px;margin-top:14px;
+    font-size:16px;font-family:'Fredoka';color:var(--rock);text-align:center;min-height:28px;transition:.15s}
+  .rock-fact-box.pop{animation:cel-pop .4s ease}
+
+  /* float test interactive */
+  .floatbox{background:linear-gradient(180deg,#CFE8F5 55%,#8FC4E0 55%);border-radius:20px;padding:20px;
+    text-align:center;margin:12px 0;position:relative;min-height:150px;overflow:hidden}
+  .floatbox .water-label{position:absolute;left:10px;bottom:8px;font-size:12px;color:#2a5a73;font-weight:700}
+  .rockpawn{font-size:46px;display:inline-block;transition:transform 1s cubic-bezier(.5,0,.5,1)}
+  .fbtns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+  .fbtn{font-family:'Fredoka';font-size:15px;border:none;background:var(--gem);color:#fff;padding:10px 16px;
+    border-radius:30px;cursor:pointer;box-shadow:0 4px 0 var(--shadow)}
+  .fbtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--shadow)}
+  .flabel{margin-top:10px;font-family:'Fredoka';font-size:17px;color:var(--rock);min-height:24px}
+
+  /* SMASH THE ROCK game */
+  .smash-stage{position:relative;min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:10px 0}
+  .smash-rock{width:230px;max-width:80%;cursor:pointer;position:relative;transition:transform .12s;user-select:none}
+  .smash-rock:active{transform:scale(.96)}
+  .smash-rock.gone{display:none}
+  .smash-rock.shake{animation:shake .35s}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px) rotate(-3deg)}40%{transform:translateX(8px) rotate(3deg)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+  .tap-hint{position:absolute;right:24px;bottom:30px;font-size:34px;animation:tap 1.1s ease-in-out infinite}
+  @keyframes tap{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .gems{display:none;gap:14px;flex-wrap:wrap;justify-content:center;align-items:center}
+  .gems.show{display:flex}
+  .gem-bit{background:#fff;border:3px solid #E4DBFF;border-radius:18px;padding:12px 14px;text-align:center;
+    box-shadow:0 5px 0 var(--shadow);min-width:90px;
+    animation:burst .6s cubic-bezier(.2,1.5,.5,1) backwards;animation-delay:calc(var(--d)*.12s)}
+  @keyframes burst{0%{transform:scale(0) translateY(20px);opacity:0}100%{transform:scale(1);opacity:1}}
+  .gem-bit .g{font-size:40px;display:block}
+  .gem-bit b{font-family:'Fredoka';font-size:15px;color:var(--violet)}
+  .smash-msg{text-align:center;font-family:'Fredoka';font-size:17px;color:var(--violet);min-height:24px;margin-top:6px}
+
+  /* rock pieces flying out */
+  .shard{position:absolute;font-size:26px;pointer-events:none;z-index:5}
+
+  /* celebration confetti */
+  .confetti{position:fixed;top:-20px;width:11px;height:11px;border-radius:2px;z-index:9999;pointer-events:none}
+  .celebrate{animation:cel-pop .6s ease}
+  @keyframes cel-pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+
+  /* SORTING GAME */
+  .sort-tray{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;background:#F5EEDF;border-radius:18px;
+    padding:14px;margin:12px 0;min-height:90px}
+  .drag-rock{background:#fff;border:3px solid #E0CDA9;border-radius:16px;padding:8px 10px 6px;text-align:center;
+    cursor:grab;box-shadow:0 4px 0 var(--shadow);transition:.15s;width:96px}
+  .drag-rock svg{width:64px;height:56px;display:block;margin:0 auto}
+  .drag-rock b{font-family:'Fredoka';font-size:13px}
+  .drag-rock.sel{border-color:var(--sun);background:#FFF6DC;transform:translateY(-4px) scale(1.05)}
+  .drag-rock.placed{display:none}
+  .baskets{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+  .basket{border-radius:20px;padding:14px;text-align:center;color:#fff;box-shadow:0 5px 0 var(--shadow);
+    min-height:130px;cursor:pointer;transition:.15s;border:4px solid transparent}
+  .basket[data-accept="hard"]{background:var(--rock)}
+  .basket[data-accept="soft"]{background:var(--moss)}
+  .basket.hot{border-color:var(--sun);transform:scale(1.03)}
+  .basket .b-emoji{font-size:34px}
+  .basket b{font-family:'Fredoka';font-size:16px;display:block;margin-bottom:6px}
+  .b-slot{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:40px}
+  .b-slot .mini{background:rgba(255,255,255,.92);color:var(--ink);border-radius:10px;padding:4px 8px;
+    font-size:12px;font-weight:700;animation:burst .4s backwards}
+  .sort-msg{text-align:center;font-family:'Fredoka';font-size:16px;color:var(--rock);min-height:24px;margin-top:10px}
+
+  /* SCRATCH TEST */
+  .scratch-stage{display:flex;justify-content:center;margin:10px 0}
+  .test-rock{width:240px;max-width:80%}
+  .test-rock.wiggle{animation:shake .4s}
+  .tool-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+  .tool-btn{display:flex;flex-direction:column;align-items:center;gap:2px;font-family:'Fredoka';font-size:14px;
+    border:3px solid #E0CDA9;background:#fff;color:var(--ink);padding:10px 14px;border-radius:16px;cursor:pointer;
+    box-shadow:0 4px 0 var(--shadow);transition:.12s}
+  .tool-btn span{font-size:26px}
+  .tool-btn small{font-size:11px;color:var(--soft);font-weight:400}
+  .tool-btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--shadow)}
+  .scratch-msg{text-align:center;font-family:'Fredoka';font-size:16px;color:var(--rock);min-height:24px;margin:10px 0}
+
+  /* MATCHING GAME */
+  .match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+  .match-col{display:flex;flex-direction:column;gap:10px}
+  .match-item{display:flex;align-items:center;gap:10px;background:#fff;border:3px solid #E4DBFF;border-radius:16px;
+    padding:12px;font-family:'Fredoka';font-size:15px;color:var(--ink);cursor:pointer;box-shadow:0 4px 0 var(--shadow);
+    transition:.12s;width:100%;text-align:left}
+  .match-item .mi-pic{font-size:28px;flex-shrink:0}
+  .match-item.sel{border-color:var(--violet);background:#F1EEFF;transform:scale(1.03)}
+  .match-item.done{background:#E4F8E3;border-color:var(--leaf);cursor:default;opacity:.85}
+  .match-item.wrongflash{border-color:var(--pop);background:#FFE3E7;animation:shake .35s}
+  .match-msg{text-align:center;font-family:'Fredoka';font-size:16px;color:var(--violet);min-height:24px;margin-top:6px}
+
+  .remember{background:linear-gradient(135deg,#F5E9D4,#EAD8B8);border-radius:22px;padding:18px 20px;margin:14px 0;border:3px solid #CDB388}
+  .remember h3{color:var(--rock);margin-top:0}
+  .trick{background:#fff;border-radius:14px;padding:10px 14px;margin:8px 0;font-size:16px;box-shadow:0 3px 0 var(--shadow)}
+
+  .q{margin:18px 0;background:#FAF5EC;border-radius:18px;padding:16px;border:2px solid #EADFC9}
+  .q .qq{font-family:'Fredoka';font-size:18px;margin-bottom:10px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:3px solid #ECE0CC;border-radius:14px;
+    padding:12px 14px;margin:8px 0;font-family:'Nunito';font-size:16px;cursor:pointer;transition:.12s}
+  .opt:hover{border-color:var(--stone)}
+  .opt.right{background:#E4F8E3;border-color:var(--leaf)}
+  .opt.wrong{background:#FFE3E7;border-color:var(--pop)}
+  .qfb{font-weight:800;margin-top:8px;min-height:22px;font-size:15.5px}
+  .qfb.g{color:var(--leaf)}.qfb.b{color:var(--pop)}
+  .star-line{font-size:24px;text-align:center;margin:6px 0;font-family:'Fredoka';color:var(--rock)}
+  .footer{text-align:center;color:var(--soft);font-size:14px;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="mascot">
+      <svg viewBox="0 0 130 120">
+        <!-- friendly rock 'Rocky' -->
+        <path d="M20 95 Q10 60 32 38 Q50 18 80 26 Q112 34 114 70 Q116 96 95 104 Q60 116 30 108 Q22 104 20 95 Z" fill="#9C7B57"/>
+        <path d="M20 95 Q10 60 32 38 Q50 18 80 26 Q112 34 114 70 Q116 96 95 104 Q60 116 30 108 Q22 104 20 95 Z" fill="none" stroke="#6e5235" stroke-width="3"/>
+        <circle cx="40" cy="58" r="4" fill="#cbb18d"/><circle cx="92" cy="50" r="3.5" fill="#cbb18d"/>
+        <circle cx="78" cy="86" r="3.5" fill="#cbb18d"/><circle cx="50" cy="90" r="3" fill="#cbb18d"/>
+        <!-- eyes -->
+        <circle cx="52" cy="64" r="11" fill="#fff"/><circle cx="80" cy="64" r="11" fill="#fff"/>
+        <circle cx="54" cy="66" r="5" fill="#2a1c0e"/><circle cx="82" cy="66" r="5" fill="#2a1c0e"/>
+        <circle cx="56" cy="64" r="1.6" fill="#fff"/><circle cx="84" cy="64" r="1.6" fill="#fff"/>
+        <!-- smile + cheeks -->
+        <path d="M54 84 Q66 94 80 84" stroke="#2a1c0e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <circle cx="44" cy="80" r="5" fill="#FF9Fb0" opacity=".55"/><circle cx="90" cy="80" r="5" fill="#FF9Fb0" opacity=".55"/>
+      </svg>
+    </div>
+    <h1>Rocks &amp; Minerals</h1>
+    <div class="tag">🪨 A Rocky Adventure with Rocky · Class 2 &amp; 3</div>
+  </div>
+
+  <div class="progress" id="prog"></div>
+
+  <!-- INTRO -->
+  <div class="card">
+    <p class="big">Say hello to <span class="pop">Rocky</span>! 🪨 Rocky is a friendly rock who will show you what the Earth is made of, hard and soft rocks, shiny minerals, and some very cool rocky secrets. Let's dig in!</p>
+    <div class="fact"><span class="ic">🌍</span><span>The ground under your feet, the mountains, and the bottom of rivers and seas — they are all made of <b>rocks!</b></span></div>
+  </div>
+
+  <!-- WHAT ARE ROCKS -->
+  <div class="card">
+    <span class="eyebrow c-rock">🪨 Part 1 · What are Rocks?</span>
+    <h2>What are Rocks?</h2>
+    <span class="emoji-xl">🪨⛰️</span>
+    <p>The Earth is made up of <b>hard things called rocks</b>. Rocks are found <b>on land, in rivers and in seas</b>. They come in many shapes, sizes and colours!</p>
+    <div class="define"><span class="word">✨ Big Word: ROCK</span>A <b>hard, natural material</b> that the Earth is made of. Rocks are made up of <b>minerals</b>.</div>
+  </div>
+
+  <!-- HARD VS SOFT -->
+  <div class="card">
+    <span class="eyebrow c-green">⚖️ Part 2 · Hard &amp; Soft Rocks</span>
+    <h2>Hard Rocks &amp; Soft Rocks</h2>
+    <p>Some rocks are very <b>hard</b>, and some are <b>soft</b>. Tap a rock to learn about it! 👇</p>
+    <div class="rocks-row">
+      <div class="rockbox rb-hard">
+        <h4>🧱 Hard Rocks</h4>
+        <span class="chip" onclick="rockFact(this,'Granite is a very hard rock used to make floors and kitchen counters.')">Granite</span><span class="chip" onclick="rockFact(this,'Sandstone is a hard rock made from pressed sand. Many old buildings are made of it!')">Sandstone</span><span class="chip" onclick="rockFact(this,'Marble is a smooth hard rock. The beautiful Taj Mahal is made of white marble!')">Marble</span>
+      </div>
+      <div class="rockbox rb-soft">
+        <h4>🍃 Soft Rocks</h4>
+        <span class="chip" onclick="rockFact(this,'Coal is a soft black rock that we burn to make heat and electricity.')">Coal</span><span class="chip" onclick="rockFact(this,'Chalk is so soft we can write with it on the blackboard!')">Chalk</span>
+      </div>
+    </div>
+    <div class="rock-fact-box" id="rockFactBox">👆 Tap any rock above to see a fun fact!</div>
+    <div class="fact green"><span class="ic">🏛️</span><span>Hard rocks like <b>marble and granite</b> are strong, so we use them to make <b>statues, buildings, floors and kitchen counters</b>.</span></div>
+    <div class="fact"><span class="ic">✏️</span><span>Soft rocks are easy to scratch. <b>Chalk</b> is soft — that's why we can write with it on a blackboard!</span></div>
+  </div>
+
+  <!-- SORTING GAME -->
+  <div class="card">
+    <span class="eyebrow c-green">🧺 Part 2½ · Sorting Game</span>
+    <h2>Sort the Rocks!</h2>
+    <p class="big">Drag each rock into the right basket — <b>Hard</b> or <b>Soft</b>! 👇 (On a phone, just tap a rock, then tap a basket.)</p>
+
+    <div class="sort-tray" id="sortTray">
+      <!-- rocks to sort: data-type hard/soft -->
+      <div class="drag-rock" draggable="true" data-type="hard" data-name="Granite">
+        <svg viewBox="0 0 80 70"><path d="M10 60 Q4 35 22 22 Q40 8 60 20 Q76 30 72 52 Q68 64 50 64 Q26 68 14 62 Z" fill="#8a8d92" stroke="#5d6166" stroke-width="3"/><circle cx="30" cy="34" r="4" fill="#cfd2d6"/><circle cx="50" cy="30" r="3" fill="#6b6e73"/><circle cx="44" cy="48" r="4" fill="#cfd2d6"/><circle cx="28" cy="50" r="3" fill="#6b6e73"/></svg>
+        <b>Granite</b>
+      </div>
+      <div class="drag-rock" draggable="true" data-type="soft" data-name="Chalk">
+        <svg viewBox="0 0 80 70"><rect x="22" y="14" width="16" height="50" rx="6" transform="rotate(12 30 39)" fill="#f4f1ea" stroke="#cbc6ba" stroke-width="3"/><ellipse cx="34" cy="60" rx="14" ry="5" fill="#e7e2d6"/></svg>
+        <b>Chalk</b>
+      </div>
+      <div class="drag-rock" draggable="true" data-type="hard" data-name="Marble">
+        <svg viewBox="0 0 80 70"><path d="M12 58 Q8 34 26 24 Q44 14 62 24 Q74 32 70 52 Q66 62 48 62 Q26 66 16 60 Z" fill="#eef0f2" stroke="#c2c7cc" stroke-width="3"/><path d="M24 34 Q40 40 60 30" stroke="#c2c7cc" stroke-width="2" fill="none"/><path d="M20 48 Q38 52 56 46" stroke="#d4d8dc" stroke-width="2" fill="none"/></svg>
+        <b>Marble</b>
+      </div>
+      <div class="drag-rock" draggable="true" data-type="soft" data-name="Coal">
+        <svg viewBox="0 0 80 70"><path d="M14 56 Q8 36 24 26 Q42 14 60 26 Q72 36 66 54 Q60 64 44 62 Q26 64 16 60 Z" fill="#3a3a40" stroke="#1c1c20" stroke-width="3"/><path d="M30 32 L40 40 L34 50" stroke="#5a5a62" stroke-width="2" fill="none"/><circle cx="52" cy="44" r="3" fill="#55555c"/></svg>
+        <b>Coal</b>
+      </div>
+      <div class="drag-rock" draggable="true" data-type="hard" data-name="Sandstone">
+        <svg viewBox="0 0 80 70"><path d="M12 58 Q10 36 26 26 Q44 14 62 26 Q72 34 68 54 Q64 62 46 62 Q26 66 16 60 Z" fill="#d9b482" stroke="#b08c54" stroke-width="3"/><circle cx="30" cy="38" r="2.5" fill="#b08c54"/><circle cx="46" cy="34" r="2.5" fill="#b08c54"/><circle cx="40" cy="50" r="2.5" fill="#b08c54"/><circle cx="54" cy="46" r="2.5" fill="#b08c54"/></svg>
+        <b>Sandstone</b>
+      </div>
+    </div>
+
+    <div class="baskets">
+      <div class="basket" data-accept="hard" id="basketHard" ondragover="event.preventDefault()" ondrop="dropRock(event,'hard')" onclick="tapBasket('hard')">
+        <div class="b-emoji">🧱</div><b>Hard Rocks</b>
+        <div class="b-slot" id="slotHard"></div>
+      </div>
+      <div class="basket" data-accept="soft" id="basketSoft" ondragover="event.preventDefault()" ondrop="dropRock(event,'soft')" onclick="tapBasket('soft')">
+        <div class="b-emoji">🍃</div><b>Soft Rocks</b>
+        <div class="b-slot" id="slotSoft"></div>
+      </div>
+    </div>
+    <div class="sort-msg" id="sortMsg">Pick a rock to start! 🪨</div>
+  </div>
+
+  <!-- MINERALS -->
+  <div class="card">
+    <span class="eyebrow c-violet">💎 Part 3 · Minerals</span>
+    <h2>Rocks are made of Minerals</h2>
+    <p>Every rock is made of one or more <b>minerals</b> mixed together. Some minerals you may have heard of:</p>
+    <div class="fact gem"><span class="ic">💎</span><span><b>Mica, Quartz, Feldspar, Talc</b> and <b>Diamond</b> are all minerals!</span></div>
+    <div class="define"><span class="word">✨ Big Word: MINERAL</span>The <b>natural materials that rocks are made from</b>. Minerals are very useful to us!</div>
+  </div>
+
+  <!-- SMASH THE ROCK GAME -->
+  <div class="card">
+    <span class="eyebrow c-violet">🔨 Part 3½ · Smash the Rock!</span>
+    <h2>What's Inside a Rock?</h2>
+    <p class="big">Rocks have <b>minerals hiding inside</b> them! Tap the big rock to <b>smash it open</b> and see what's inside. 👇</p>
+
+    <div class="smash-stage">
+      <div class="smash-rock" id="smashRock" onclick="smash()">
+        <svg viewBox="0 0 200 170" id="rockSvg">
+          <!-- whole rock -->
+          <g id="wholeRock">
+            <path d="M30 150 Q12 95 45 60 Q75 28 115 38 Q172 50 175 105 Q177 148 140 158 Q85 170 45 160 Q34 157 30 150 Z" fill="#9C7B57" stroke="#6e5235" stroke-width="4"/>
+            <circle cx="70" cy="80" r="5" fill="#cbb18d"/><circle cx="120" cy="70" r="4" fill="#cbb18d"/>
+            <circle cx="110" cy="120" r="4" fill="#cbb18d"/><circle cx="65" cy="125" r="3.5" fill="#cbb18d"/>
+            <text x="100" y="108" font-size="15" text-anchor="middle" fill="#5a4326" font-family="Fredoka,sans-serif" font-weight="700">tap me!</text>
+          </g>
+        </svg>
+        <div class="tap-hint" id="tapHint">👆</div>
+      </div>
+
+      <!-- revealed minerals (hidden until smashed) -->
+      <div class="gems" id="gems">
+        <div class="gem-bit" style="--d:0"><span class="g">💎</span><b>Diamond</b></div>
+        <div class="gem-bit" style="--d:1"><span class="g">✨</span><b>Quartz</b></div>
+        <div class="gem-bit" style="--d:2"><span class="g">🟫</span><b>Mica</b></div>
+        <div class="gem-bit" style="--d:3"><span class="g">🧈</span><b>Talc</b></div>
+      </div>
+    </div>
+    <div class="smash-msg" id="smashMsg">Give the rock a tap! 🔨</div>
+  </div>
+
+  <!-- HARDEST & SOFTEST -->
+  <div class="card">
+    <span class="eyebrow c-sun">🏆 Part 4 · Hardest &amp; Softest</span>
+    <h2>The Hardest &amp; the Softest</h2>
+    <div class="scale">
+      <div class="end soft"><span class="e">🧈</span><b>Talc</b><small>SOFTEST</small></div>
+      <div class="bar">soft  →  →  →  hard</div>
+      <div class="end hard"><span class="e">💎</span><b>Diamond</b><small>HARDEST</small></div>
+    </div>
+    <div class="fact gem"><span class="ic">💎</span><span><b>Diamond</b> is the <b>HARDEST</b> mineral of all. It is so hard it can even cut glass! It is shiny and precious, so we make jewellery from it.</span></div>
+    <div class="fact green"><span class="ic">🧈</span><span><b>Talc</b> is the <b>SOFTEST</b> mineral. It is so soft it can be crushed into a fine powder!</span></div>
+  </div>
+
+  <!-- SCRATCH TEST -->
+  <div class="card">
+    <span class="eyebrow c-sun">🔬 Part 4½ · Scratch Test</span>
+    <h2>How Do We Know a Rock is Hard?</h2>
+    <p class="big">Scientists test hardness by trying to <b>scratch</b> a rock! Pick a tool and tap the rock to test it. 👇</p>
+
+    <div class="scratch-stage">
+      <svg viewBox="0 0 220 150" id="testRock" class="test-rock">
+        <path d="M30 130 Q14 80 44 52 Q78 24 122 36 Q186 54 182 108 Q178 140 130 142 Q72 150 42 138 Q32 135 30 130 Z" fill="#9C7B57" stroke="#6e5235" stroke-width="4"/>
+        <circle cx="80" cy="74" r="5" fill="#cbb18d"/><circle cx="130" cy="66" r="4" fill="#cbb18d"/><circle cx="120" cy="110" r="4" fill="#cbb18d"/>
+        <g id="scratchMark" opacity="0"><path d="M60 70 L150 100" stroke="#5a4326" stroke-width="3" stroke-linecap="round"/><path d="M70 90 L140 75" stroke="#5a4326" stroke-width="2.5" stroke-linecap="round"/></g>
+      </svg>
+    </div>
+    <div class="tool-btns">
+      <button class="tool-btn" onclick="scratch('nail')"><span>🔩</span>Steel Nail<small>very hard</small></button>
+      <button class="tool-btn" onclick="scratch('coin')"><span>🪙</span>Coin<small>medium</small></button>
+      <button class="tool-btn" onclick="scratch('nail-finger')"><span>💅</span>Fingernail<small>soft</small></button>
+    </div>
+    <div class="scratch-msg" id="scratchMsg">Pick a tool and tap to test! 🔬</div>
+    <div class="fact green"><span class="ic">💡</span><span>A <b>harder</b> tool can scratch a <b>softer</b> rock. Diamond is so hard that <b>nothing</b> can scratch it!</span></div>
+  </div>
+
+  <!-- MINERAL MATCHING GAME -->
+  <div class="card">
+    <span class="eyebrow c-gem">🔗 Part 5 · Matching Game</span>
+    <h2>Match the Mineral to its Use</h2>
+    <p class="big">Tap a <b>mineral</b> on the left, then tap what we <b>make</b> from it on the right! 👇</p>
+
+    <div class="match-wrap">
+      <div class="match-col" id="mcolL">
+        <button class="match-item" data-id="diamond" onclick="pickLeft(this)">
+          <span class="mi-pic">💎</span><b>Diamond</b>
+        </button>
+        <button class="match-item" data-id="graphite" onclick="pickLeft(this)">
+          <span class="mi-pic">⚫</span><b>Graphite</b>
+        </button>
+        <button class="match-item" data-id="clay" onclick="pickLeft(this)">
+          <span class="mi-pic">🟤</span><b>China Clay</b>
+        </button>
+        <button class="match-item" data-id="silica" onclick="pickLeft(this)">
+          <span class="mi-pic">🟡</span><b>Silica (sand)</b>
+        </button>
+      </div>
+      <div class="match-col" id="mcolR">
+        <button class="match-item use" data-id="silica" onclick="pickRight(this)">
+          <span class="mi-pic">🫙</span><b>Glass jar</b>
+        </button>
+        <button class="match-item use" data-id="diamond" onclick="pickRight(this)">
+          <span class="mi-pic">💍</span><b>Jewellery</b>
+        </button>
+        <button class="match-item use" data-id="clay" onclick="pickRight(this)">
+          <span class="mi-pic">🏺</span><b>Pottery</b>
+        </button>
+        <button class="match-item use" data-id="graphite" onclick="pickRight(this)">
+          <span class="mi-pic">✏️</span><b>Pencil lead</b>
+        </button>
+      </div>
+    </div>
+    <div class="match-msg" id="matchMsg">Tap a mineral to begin! ✨</div>
+  </div>
+
+
+  <!-- COOL ROCK SECRETS (HOTS) -->
+  <div class="card">
+    <span class="eyebrow c-pop">🤯 Part 6 · Cool Rock Secrets</span>
+    <h2>Amazing Rock Secrets!</h2>
+
+    <h3>🛁 The rock that FLOATS!</h3>
+    <p>Most rocks sink, but one special rock <b>floats on water</b> because it is full of tiny air holes. Press the button and watch!</p>
+    <div class="floatbox">
+      <span class="rockpawn" id="pawn">🪨</span>
+      <span class="water-label">💧 water</span>
+    </div>
+    <div class="flabel" id="flabel">Tap a rock below to test it! 💧</div>
+    <div class="fbtns">
+      <button class="fbtn" onclick="floatTest(true)">Test Pumice 🪨</button>
+      <button class="fbtn" onclick="floatTest(false)">Test Granite 🧱</button>
+    </div>
+
+    <h3 style="margin-top:20px">✏️ The rock that rubs off!</h3>
+    <p><b>Chalk</b> is so soft that it <b>wears off easily</b> when you rub it — that's how it writes on the board and how teachers' hands get dusty!</p>
+    <div class="fact pink"><span class="ic">🧠</span><span><b>Remember:</b> <b>Pumice</b> floats on water 🪨💧 and <b>Chalk</b> wears off when rubbed ✏️. These show up in Olympiad questions!</span></div>
+  </div>
+
+  <!-- TAJ MAHAL FUN -->
+  <div class="card">
+    <span class="eyebrow c-rock">🕌 Part 7 · Rocks Around Us</span>
+    <h2>Rocks Build Beautiful Things</h2>
+    <div class="fact"><span class="ic">🕌</span><span>The famous <b>Taj Mahal</b> is made of beautiful white <b>marble</b> — a hard rock!</span></div>
+    <div class="fact"><span class="ic">🗽</span><span>Many <b>statues, temples and buildings</b> are made from strong rocks like marble and granite.</span></div>
+    <div class="fact green"><span class="ic">🏔️</span><span>Rocks like <b>gneiss, granite and sandstone</b> make up our mountains.</span></div>
+  </div>
+
+  <!-- MEMORY -->
+  <div class="card">
+    <div class="remember">
+      <h3>🌟 Super Memory Tricks</h3>
+      <div class="trick">🪨 The Earth is made of <b>rocks</b>; rocks are made of <b>minerals</b>.</div>
+      <div class="trick">🧱 Hard rocks: <b>granite, sandstone, marble</b>. Soft rocks: <b>coal, chalk</b>.</div>
+      <div class="trick">💎 <b>Diamond</b> = HARDEST mineral. <b>Talc</b> = SOFTEST mineral.</div>
+      <div class="trick">🛁 <b>Pumice</b> floats on water. ✏️ <b>Chalk</b> rubs off easily.</div>
+      <div class="trick">💍 Diamond → jewellery, ✏️ graphite → pencil, 🫙 silica → glass.</div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="card">
+    <span class="eyebrow c-rock">🏆 Quiz Time!</span>
+    <h2>Be a Rock Star</h2>
+    <p>Tap your answer and earn stars! ⭐</p>
+
+    <div class="q" data-correct="1">
+      <div class="qq">1. Which is the HARDEST mineral?</div>
+      <button class="opt">Talc</button>
+      <button class="opt">Diamond</button>
+      <button class="opt">Chalk</button>
+      <div class="qfb"></div>
+    </div>
+    <div class="q" data-correct="0">
+      <div class="qq">2. Which mineral is the SOFTEST?</div>
+      <button class="opt">Talc</button>
+      <button class="opt">Diamond</button>
+      <button class="opt">Granite</button>
+      <div class="qfb"></div>
+    </div>
+    <div class="q" data-correct="2">
+      <div class="qq">3. Which rock FLOATS on water?</div>
+      <button class="opt">Marble</button>
+      <button class="opt">Granite</button>
+      <button class="opt">Pumice</button>
+      <div class="qfb"></div>
+    </div>
+    <div class="q" data-correct="1">
+      <div class="qq">4. The Taj Mahal is made of which rock?</div>
+      <button class="opt">Coal</button>
+      <button class="opt">Marble</button>
+      <button class="opt">Sandstone</button>
+      <div class="qfb"></div>
+    </div>
+    <div class="q" data-correct="2">
+      <div class="qq">5. What do we make from graphite?</div>
+      <button class="opt">Glass</button>
+      <button class="opt">Jewellery</button>
+      <button class="opt">Pencil lead</button>
+      <div class="qfb"></div>
+    </div>
+
+    <div class="star-line" id="stars">⭐ Score: 0 / 5</div>
+  </div>
+
+  <div class="footer">🎉 Fantastic! You're a Rock Star now! Keep exploring, little geologist! 🪨💎</div>
+</div>
+
+<script>
+  /* ===== tiny sound engine (Web Audio, no files needed) ===== */
+  let actx=null;
+  function AC(){ if(!actx){ try{actx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){} } return actx; }
+  function tone(freq,start,dur,type,vol){
+    const a=AC(); if(!a) return;
+    const o=a.createOscillator(), g=a.createGain();
+    o.type=type||'sine'; o.frequency.value=freq;
+    o.connect(g); g.connect(a.destination);
+    const t=a.currentTime+start;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(vol||0.2,t+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    o.start(t); o.stop(t+dur+0.02);
+  }
+  function noise(start,dur,vol){
+    const a=AC(); if(!a) return;
+    const n=Math.floor(a.sampleRate*dur);
+    const buf=a.createBuffer(1,n,a.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*(1-i/n);
+    const s=a.createBufferSource(); s.buffer=buf;
+    const g=a.createGain(); g.gain.value=vol||0.3;
+    s.connect(g); g.connect(a.destination);
+    s.start(a.currentTime+start);
+  }
+  const sfx={
+    smash(){ noise(0,0.35,0.4); tone(140,0,0.25,'square',0.25); tone(90,0.05,0.3,'sawtooth',0.2); },
+    sparkle(){ [880,1175,1568].forEach((f,i)=>tone(f,i*0.07,0.25,'triangle',0.18)); },
+    ding(){ tone(880,0,0.15,'sine',0.25); tone(1320,0.08,0.25,'sine',0.2); },
+    buzz(){ tone(200,0,0.18,'sawtooth',0.18); tone(150,0.1,0.2,'sawtooth',0.15); },
+    fanfare(){ [523,659,784,1047].forEach((f,i)=>tone(f,i*0.12,0.4,'triangle',0.22)); }
+  };
+
+  /* ===== smash the rock ===== */
+  let smashed=false;
+  function smash(){
+    if(smashed) return;
+    smashed=true;
+    AC(); // unlock audio on tap
+    const rock=document.getElementById('smashRock');
+    const hint=document.getElementById('tapHint');
+    if(hint) hint.style.display='none';
+    rock.classList.add('shake');
+    sfx.smash();
+    // fly out shard pieces
+    const stage=rock.parentElement;
+    const pieces=['🪨','🪨','🪨','🪨','🪨','🪨'];
+    pieces.forEach((p,i)=>{
+      const s=document.createElement('div');s.className='shard';s.textContent=p;
+      s.style.left='50%';s.style.top='45%';
+      stage.appendChild(s);
+      const ang=(i/pieces.length)*Math.PI*2;
+      const dist=90+Math.random()*60;
+      s.animate([
+        {transform:'translate(-50%,-50%) scale(1)',opacity:1},
+        {transform:`translate(${Math.cos(ang)*dist-50}px,${Math.sin(ang)*dist+10}px) scale(.4) rotate(${(Math.random()*2-1)*360}deg)`,opacity:0}
+      ],{duration:700,easing:'cubic-bezier(.3,.7,.4,1)'});
+      setTimeout(()=>s.remove(),720);
+    });
+    // after the crack, reveal the gems
+    setTimeout(()=>{
+      rock.classList.add('gone');
+      document.getElementById('gems').classList.add('show');
+      sfx.sparkle();
+      const msg=document.getElementById('smashMsg');
+      msg.textContent='✨ Wow! Look at the minerals inside! ✨';
+    },380);
+  }
+
+  /* ===== PART 2: tap a rock for a fun fact ===== */
+  function rockFact(el, fact){
+    AC();
+    document.querySelectorAll('.rockbox .chip').forEach(c=>c.classList.remove('tapped'));
+    el.classList.add('tapped');
+    const box=document.getElementById('rockFactBox');
+    box.textContent='🪨 '+fact;
+    box.classList.remove('pop');void box.offsetWidth;box.classList.add('pop');
+    sfx.sparkle();
+  }
+
+  /* ===== SORTING GAME ===== */
+  let selRock=null, sortDone=0;
+  const totalSort=document.querySelectorAll('.drag-rock').length;
+  document.querySelectorAll('.drag-rock').forEach(r=>{
+    r.addEventListener('dragstart',e=>{ e.dataTransfer.setData('type',r.dataset.type); e.dataTransfer.setData('name',r.dataset.name); selRock=r; });
+    r.addEventListener('click',()=>{
+      document.querySelectorAll('.drag-rock').forEach(x=>x.classList.remove('sel'));
+      r.classList.add('sel'); selRock=r;
+      document.getElementById('sortMsg').textContent='Now tap a basket for '+r.dataset.name+'! 👇';
+    });
+  });
+  function placeRock(rock, basketType){
+    const ok = rock.dataset.type===basketType;
+    const msg=document.getElementById('sortMsg');
+    AC();
+    if(ok){
+      const slot=document.getElementById(basketType==='hard'?'slotHard':'slotSoft');
+      const mini=document.createElement('span');mini.className='mini';mini.textContent=rock.dataset.name;
+      slot.appendChild(mini);
+      rock.classList.add('placed'); rock.classList.remove('sel');
+      sfx.ding(); sortDone++;
+      msg.textContent='✅ Yes! '+rock.dataset.name+' is a '+basketType+' rock!'; msg.style.color='#5BB85C';
+      selRock=null;
+      if(sortDone===totalSort){ msg.textContent='🎉 All sorted! You are a rock sorter!'; setTimeout(celebrate,400); }
+    }else{
+      sfx.buzz();
+      msg.textContent='❌ Try again! '+rock.dataset.name+' is not a '+basketType+' rock.'; msg.style.color='#FF7A8A';
+    }
+  }
+  function dropRock(e,basketType){ e.preventDefault(); if(selRock) placeRock(selRock,basketType); }
+  function tapBasket(basketType){
+    if(selRock) placeRock(selRock,basketType);
+    else document.getElementById('sortMsg').textContent='First tap a rock above! 🪨';
+  }
+  // basket highlight on dragover
+  document.querySelectorAll('.basket').forEach(b=>{
+    b.addEventListener('dragover',()=>b.classList.add('hot'));
+    b.addEventListener('dragleave',()=>b.classList.remove('hot'));
+    b.addEventListener('drop',()=>b.classList.remove('hot'));
+  });
+
+  /* ===== SCRATCH TEST ===== */
+  function scratch(tool){
+    AC();
+    const rock=document.getElementById('testRock');
+    const mark=document.getElementById('scratchMark');
+    const msg=document.getElementById('scratchMsg');
+    rock.classList.remove('wiggle');void rock.offsetWidth;rock.classList.add('wiggle');
+    if(tool==='nail'){
+      mark.setAttribute('opacity','1'); sfx.smash();
+      msg.textContent='🔩 The steel nail scratched the rock! It is harder than the rock.'; msg.style.color='#7A5C3E';
+    }else if(tool==='coin'){
+      mark.setAttribute('opacity','0.5'); tone(400,0,0.15,'square',0.18);
+      msg.textContent='🪙 The coin made a faint mark. It is about the same hardness.'; msg.style.color='#E0A52E';
+    }else{
+      mark.setAttribute('opacity','0'); tone(250,0,0.15,'sine',0.15);
+      msg.textContent='💅 The fingernail is too soft — no scratch! The rock is harder.'; msg.style.color='#5BB85C';
+    }
+  }
+
+  /* ===== MATCHING GAME ===== */
+  let selLeft=null, matchDone=0;
+  const totalMatch=document.querySelectorAll('#mcolL .match-item').length;
+  function pickLeft(el){
+    if(el.classList.contains('done'))return;
+    AC();
+    document.querySelectorAll('#mcolL .match-item').forEach(x=>x.classList.remove('sel'));
+    el.classList.add('sel'); selLeft=el;
+    document.getElementById('matchMsg').textContent='Now tap what we make from '+el.querySelector('b').textContent+'! 👉';
+    document.getElementById('matchMsg').style.color='var(--violet)';
+  }
+  function pickRight(el){
+    if(el.classList.contains('done'))return;
+    const msg=document.getElementById('matchMsg');
+    if(!selLeft){ msg.textContent='First tap a mineral on the left! 👈'; return; }
+    AC();
+    if(el.dataset.id===selLeft.dataset.id){
+      el.classList.add('done'); selLeft.classList.add('done'); selLeft.classList.remove('sel');
+      sfx.ding(); matchDone++;
+      msg.textContent='✅ Great match!'; msg.style.color='#5BB85C';
+      selLeft=null;
+      if(matchDone===totalMatch){ msg.textContent='🎉 All matched! Mineral master!'; setTimeout(celebrate,400); }
+    }else{
+      el.classList.add('wrongflash'); sfx.buzz();
+      setTimeout(()=>el.classList.remove('wrongflash'),400);
+      msg.textContent='❌ Not quite! Try another one.'; msg.style.color='#FF7A8A';
+    }
+  }
+
+  // sparkles
+  for(let i=0;i<16;i++){
+    const s=document.createElement('div');s.className='spark';s.textContent='✦';
+    s.style.left=Math.random()*100+'vw';s.style.top=Math.random()*100+'vh';
+    s.style.fontSize=(8+Math.random()*16)+'px';
+    s.style.animationDelay=(-Math.random()*3)+'s';
+    document.body.appendChild(s);
+  }
+  // progress dots
+  const cards=document.querySelectorAll('.card').length;
+  const prog=document.getElementById('prog');
+  for(let i=0;i<cards;i++){const d=document.createElement('div');d.className='pdot';prog.appendChild(d);}
+
+  // float test
+  function floatTest(floats){
+    AC();
+    const pawn=document.getElementById('pawn');
+    const label=document.getElementById('flabel');
+    if(floats){
+      pawn.textContent='🪨';
+      pawn.style.transform='translateY(-30px)';
+      label.textContent='Pumice FLOATS! It is full of air holes. 🎈';
+      label.style.color='#2E9BC4';
+      sfx.sparkle();
+    }else{
+      pawn.textContent='🧱';
+      pawn.style.transform='translateY(60px)';
+      label.textContent='Granite SINKS! It is heavy and solid. ⬇️';
+      label.style.color='#7A5C3E';
+      tone(300,0,0.25,'sine',0.2); tone(180,0.1,0.3,'sine',0.18);
+    }
+  }
+
+  // quiz
+  let score=0, done=0;
+  const totalQ=document.querySelectorAll('.q').length;
+  document.querySelectorAll('.q').forEach(q=>{
+    const correct=+q.dataset.correct;
+    const opts=q.querySelectorAll('.opt');
+    const fb=q.querySelector('.qfb');
+    opts.forEach((o,i)=>{
+      o.onclick=()=>{
+        if(q.dataset.done)return;
+        q.dataset.done="1"; done++;
+        AC(); // unlock audio
+        if(i===correct){o.classList.add('right');fb.textContent="🎉 Yes! Correct!";fb.className="qfb g";score++;sfx.ding();}
+        else{o.classList.add('wrong');opts[correct].classList.add('right');
+          fb.textContent="Oops! The green one is right. 😊";fb.className="qfb b";sfx.buzz();}
+        const stars=document.getElementById('stars');
+        stars.textContent=`⭐ Score: ${score} / ${totalQ}`;
+        stars.classList.remove('celebrate');void stars.offsetWidth;stars.classList.add('celebrate');
+        if(done===totalQ) setTimeout(celebrate,500);
+      };
+    });
+  });
+
+  function celebrate(){
+    sfx.fanfare();
+    const colors=['#FFC857','#5BB85C','#5BC0BE','#FF7A8A','#9B8CFF'];
+    for(let i=0;i<70;i++){
+      const c=document.createElement('div');c.className='confetti';
+      c.style.left=Math.random()*100+'vw';
+      c.style.background=colors[i%colors.length];
+      c.style.transform=`rotate(${Math.random()*360}deg)`;
+      document.body.appendChild(c);
+      const fall=1400+Math.random()*1400;
+      c.animate([
+        {top:'-20px',opacity:1},
+        {top:'100vh',opacity:.9}
+      ],{duration:fall,easing:'cubic-bezier(.3,.6,.5,1)'});
+      setTimeout(()=>c.remove(),fall+50);
+    }
+    const stars=document.getElementById('stars');
+    let msg='⭐ Score: '+score+' / '+totalQ+'  ';
+    msg += score===totalQ ? '🏆 PERFECT! Rock Star!' : score>=3 ? '🎉 Great job!' : '💪 Try again!';
+    stars.textContent=msg;
+    // a happy bounce
+    stars.classList.remove('celebrate');void stars.offsetWidth;stars.classList.add('celebrate');
+  }
+
+</script>
+</body>
+</html>
